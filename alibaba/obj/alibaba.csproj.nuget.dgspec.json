@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\morhe\\source\\repos\\alibaba\\alibaba\\alibaba.csproj": {}
+    "C:\\Users\\Pola Hany\\Source\\Repos\\alibaba-connect\\alibaba\\alibaba.csproj": {}
   },
   "projects": {
-    "C:\\Users\\morhe\\source\\repos\\alibaba\\alibaba\\alibaba.csproj": {
+    "C:\\Users\\Pola Hany\\Source\\Repos\\alibaba-connect\\alibaba\\alibaba.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\morhe\\source\\repos\\alibaba\\alibaba\\alibaba.csproj",
+        "projectUniqueName": "C:\\Users\\Pola Hany\\Source\\Repos\\alibaba-connect\\alibaba\\alibaba.csproj",
         "projectName": "alibaba",
-        "projectPath": "C:\\Users\\morhe\\source\\repos\\alibaba\\alibaba\\alibaba.csproj",
-        "packagesPath": "E:\\Users\\morhe\\.nuget\\packages",
-        "outputPath": "C:\\Users\\morhe\\source\\repos\\alibaba\\alibaba\\obj\\",
+        "projectPath": "C:\\Users\\Pola Hany\\Source\\Repos\\alibaba-connect\\alibaba\\alibaba.csproj",
+        "packagesPath": "C:\\Users\\Pola Hany\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pola Hany\\Source\\Repos\\alibaba-connect\\alibaba\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\morhe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pola Hany\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,12 +79,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -96,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.111\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }
