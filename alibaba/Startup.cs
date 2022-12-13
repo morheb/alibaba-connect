@@ -88,6 +88,7 @@ namespace alibaba
         {
             env.EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName.Production;
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
