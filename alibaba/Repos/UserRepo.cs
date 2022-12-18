@@ -41,7 +41,7 @@ namespace alibaba.Repos
             try
             {
                 userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
-                                                TABLE_SCHEMA = 'qeiapmmy_talabak' AND
+                                                TABLE_SCHEMA = 'qeiapmmy_AllBaba_store' AND
                                                 TABLE_NAME = 'users'  ", parameters) - 1;
 
             }
