@@ -32,13 +32,14 @@ namespace alibaba.Repos
 
             parameters.Add("@name", cat.Name);
             parameters.Add("@restaurantId", cat.RestaurantId);
+            parameters.Add("@imgUrl", cat.ImgUrl);
             parameters.Add("@id", cat.Id);
 
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into restaurantcategories (name, restaurantId) VALUES
-                                                                               (@name,@restaurantId) ",
+                var res = await sqlQuery.PostQuery(@"insert into restaurantcategories (name,imgUrl, restaurantId) VALUES
+                                                                               (@name,@imgUrl,@restaurantId) ",
                parameters);
             }
             catch (Exception e)
@@ -63,6 +64,7 @@ namespace alibaba.Repos
                     var parameters = new DynamicParameters();
                     parameters.Add("@name", cat.Name);
                     parameters.Add("@restaurantId", cat.RestaurantId);
+                    parameters.Add("@imgUrl", cat.RestaurantId);
                 
                     parameters.Add("@id", cat.Id);
                     
@@ -71,7 +73,7 @@ namespace alibaba.Repos
                     try
                     {
                         var res = await sqlQuery.PostQuery(@"UPDATE restaurantcategories SET name =@name, 
-                                                            
+                                                            imgUrl=@imgUrl,
                                                             restaurantId=@restaurantId
                                                             WHERE  id = @id;", parameters);
                     }
@@ -92,7 +94,7 @@ namespace alibaba.Repos
            
             try
             {
-                return await sql.GetListQuery($@"SELECT id, name,restaurantId from restaurantcategories
+                return await sql.GetListQuery($@"SELECT id, name,restaurantId ,imgUrl from restaurantcategories
                                                 where restaurantId = {restId}
                                                 ", parameters);
             }

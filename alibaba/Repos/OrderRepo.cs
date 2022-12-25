@@ -72,7 +72,7 @@ namespace alibaba.Repos
                 try
                 {
                     orderId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
-                                                TABLE_SCHEMA = 'qeiapmmy_talabak' AND
+                                                TABLE_SCHEMA = 'qeiapmmy_AllBaba_store' AND
                                                 TABLE_NAME = 'orders'  ", parameters) - 1;
 
                 }
@@ -120,23 +120,7 @@ namespace alibaba.Repos
                     }
                     parameters = new DynamicParameters();
 
-                    try
-                    {
-                        var res = await sqlQuery.PostQuery($@"insert into orderAddon (orderId,count,addonId, price, name) VALUES  {addonQuery} ",
-                       parameters);
-                    }
-                    catch (Exception e)
-                    {
-                        var res = await sqlQuery.PostQuery($@"delete from orders where id = {orderId} ", parameters);
-                        var del = await sqlQuery.PostQuery($@"delete from ordersproducts where orderId = {orderId} ", parameters);
-
-                        return new DbResponse()
-                        {
-                            Data = orderId.ToString(),
-                            Error = e.Message,
-                            Success = false
-                        };
-                    }
+                   
                 }
 
             }
@@ -225,10 +209,10 @@ namespace alibaba.Repos
             var products = await prods.GetListQuery(@"select productId as id, o.COUNT as count, p.name , p.image from ordersproducts o join products p on p.id = o.productId  where orderId = @Id", parameters);
             result.Products = products.AsList<DbProductOrder>();
 
-            SqlORM<DbAddonOrder> addonsSql = new SqlORM<DbAddonOrder>(_dbSettings);
-            parameters.Add("@Id", orderId);
-            var addons = await addonsSql.GetListQuery(@"select addonId , count, name  from orderAddon  where orderId = @Id", parameters);
-            result.Addons = addons.AsList<DbAddonOrder>();
+            //SqlORM<DbAddonOrder> addonsSql = new SqlORM<DbAddonOrder>(_dbSettings);
+            //parameters.Add("@Id", orderId);
+            //var addons = await addonsSql.GetListQuery(@"select addonId , count, name  from orderAddon  where orderId = @Id", parameters);
+            //result.Addons = addons.AsList<DbAddonOrder>();
 
             return result;
         }

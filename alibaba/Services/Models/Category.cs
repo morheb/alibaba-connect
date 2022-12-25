@@ -8,6 +8,9 @@ namespace alibaba.Services.Models
 
         public int Id { get; set; }
         public int RestaurantId { get; set; }
+
+        public string ImgUrl { get; set; }
+
         public string Name { get; set; }
        
     }

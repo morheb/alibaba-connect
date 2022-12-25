@@ -8,7 +8,7 @@ namespace alibaba.Services.Models
 
         public int Id { get; set; }
         public List<ProductOrder> Products { get; set; }
-        public List<AddonOrder> Addons { get; set; }
+       // public List<AddonOrder> Addons { get; set; }
 
         public int Status { get; set; }
         public bool  WithDelivery { get; set; }

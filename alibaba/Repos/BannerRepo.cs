@@ -33,12 +33,13 @@ namespace alibaba.Repos
          
             parameters.Add("@url", url);
             parameters.Add("@id", id);
+            parameters.Add("@restaurantId", id);
 
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into banners (url) VALUES
-                                                                               (@url) ",
+                var res = await sqlQuery.PostQuery(@"insert into banners (url,restaurantId) VALUES
+                                                                               (@url,@restaurantId) ",
                parameters);
             }
             catch (Exception e)
