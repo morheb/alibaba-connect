@@ -117,6 +117,11 @@ namespace alibaba.Mapper
             CreateMap<DbCategory, Category>();
 
             CreateMap<Category, DbCategory>();
+            
+            
+            CreateMap<DbBrand, Brand>();
+
+            CreateMap<Brand, DbBrand>();
 
     
 

@@ -43,7 +43,9 @@ namespace alibaba.Repos
             parameters.Add("@ingredients", prod.Ingredients);
             parameters.Add("@isvegan", prod.IsVegan);
             parameters.Add("@isvegiterian", prod.IsVegiterian);
-            parameters.Add("@islowfat", prod.IsLowFat);
+            parameters.Add("@IsDiaryFree", prod.IsDiaryFree);
+            parameters.Add("@IsOrganic", prod.IsOrganic);
+            parameters.Add("@IsZeroSugar", prod.IsZeroSugar);
             parameters.Add("@calories", prod.Calories);
             parameters.Add("@image", prod.Image);
             parameters.Add("@eta", prod.ETA);
@@ -53,9 +55,8 @@ namespace alibaba.Repos
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into products (name,category,subcategory,description,price, restaurantId , ingredients,isvegan ,isvegiterian,callories,image,eta,rating) VALUES 
-(@name,@category,@subcategory,@description,@price, @restaurantId ,@ingredients,@isvegan 
-,@isvegiterian,@calories,@image,@eta,@rating) ",
+                var res = await sqlQuery.PostQuery(@"insert into products (name,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price, restaurantId , ingredients,callories,image,eta,rating) VALUES 
+(@name,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@calories,@image,@eta,@rating) ",
                parameters);
             }
             catch (Exception e)
@@ -181,7 +182,7 @@ namespace alibaba.Repos
             parameters.Add("@rating", prod.Rating);
             parameters.Add("@image", prod.Image);
             parameters.Add("@category", prod.Category);
-            parameters.Add("@islowfat", prod.IsLowFat);
+            parameters.Add("@isOrganic", prod.IsOrganic);
             parameters.Add("@ingredients", prod.Ingredients);
             parameters.Add("@isvegan", prod.IsVegan);
             parameters.Add("@isvegiterian", prod.IsVegiterian);
@@ -190,7 +191,7 @@ namespace alibaba.Repos
             try
             {
                 var res = await sqlQuery.PostQuery($"UPDATE products SET name ='{prod.Name}',category= '{prod.Category}', subcategory= '{prod.SubCategory}', description ='{prod.Description}',price='{prod.Price}'," +
-                    $"ingredients='{prod.Ingredients}',isvegan='{prod.IsVegan}',isvegiterian='{prod.IsVegiterian}'" +
+                    $"ingredients='{prod.Ingredients}',IsZeroSugar='{prod.IsZeroSugar}',IsOrganic='{prod.IsOrganic}',IsDiaryFree='{prod.IsDiaryFree}',isvegan='{prod.IsVegan}',isvegiterian='{prod.IsVegiterian}'" +
                     $",callories='{prod.Calories}'," +
                     $"image='{prod.Image}',eta='{prod.ETA}' WHERE  id = '{prod.Id}';", parameters);
             }
@@ -247,6 +248,26 @@ namespace alibaba.Repos
             {
                 query += $" and subcategory = {criteria.SubCategory }";
             }
+        if(criteria.IsDiaryFree)
+            {
+                query += $" and IsDiaryFree=true ";
+            }
+        if(criteria.IsOrganic)
+            {
+                query += $" and IsOrganic=true ";
+            }
+        if(criteria.IsVegan)
+            {
+                query += $" and isVegan=true ";
+            }
+        if(criteria.IsVegiterian)
+            {
+                query += $" and IsVegiterian=true ";
+            }
+        if(criteria.IsZeroSugar)
+            {
+                query += $" and IsZeroSugar=true ";
+            }
         if(criteria.isOffer)
             {
                 query += $" and offerexpiry > DATE_ADD(NOW(), INTERVAL 9 HOUR)";
@@ -256,6 +277,7 @@ namespace alibaba.Repos
             top = " rating desc";
 
         }
+
         if (criteria.PageNumber!=0)
         {
             range += $" LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}";

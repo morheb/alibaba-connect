@@ -11,7 +11,11 @@ namespace alibaba.Services.Models
         public int Category { get; set; }
         public int SubCategory { get; set; }
         public bool isOffer { get; set; }
-
+        public bool IsVegan { get; set; }
+        public bool IsVegiterian { get; set; }
+        public bool IsDiaryFree { get; set; }
+        public bool IsOrganic { get; set; }
+        public bool IsZeroSugar { get; set; }
         public bool Istop { get; set; }
         public int PageSize { get; set; }
         public int PageNumber { get; set; }

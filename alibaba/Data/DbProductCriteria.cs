@@ -13,6 +13,11 @@ namespace alibaba.Data
         public string Name { get; set; }
         public bool IsTop { get; set; }
         public string PhoneNumber { get; set; }
+        public bool IsVegan { get; set; }
+        public bool IsVegiterian { get; set; }
+        public bool IsOrganic { get; set; }
+        public bool IsDiaryFree { get; set; }
+        public bool IsZeroSugar { get; set; }
         public double Rating { get; set; }
 
 

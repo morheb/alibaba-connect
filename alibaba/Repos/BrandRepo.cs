@@ -12,18 +12,18 @@ using System.Collections.Generic;
 
 namespace alibaba.Repos
 {
-    public class CategoryRepo : ICategoryRepo
+    public class BrandRepo : IBrandRepo
     {
 
         private readonly IDbSettings _dbSettings;
-        private readonly ILogger<CategoryRepo> _logger;
-        public CategoryRepo(IDbSettings dbSettings, ILogger<CategoryRepo> logger)
+        private readonly ILogger<BrandRepo> _logger;
+        public BrandRepo(IDbSettings dbSettings, ILogger<BrandRepo> logger)
         {
             _dbSettings = dbSettings;
             _logger = logger;
         }
 
-        public async Task<bool> PostCategoryAsync(DbCategory cat)
+        public async Task<bool> PostBrandAsync(DbBrand cat)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
 
@@ -38,7 +38,7 @@ namespace alibaba.Repos
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into restaurantcategories (name,imgUrl, restaurantId) VALUES
+                var res = await sqlQuery.PostQuery(@"insert into restaurantbrands (name,imgUrl, restaurantId) VALUES
                                                                                (@name,@imgUrl,@restaurantId) ",
                parameters);
             }
@@ -56,7 +56,7 @@ namespace alibaba.Repos
 
 
 
-        public async Task<bool> UpdateCategoryAsync(DbCategory cat)
+        public async Task<bool> UpdateBrandAsync(DbBrand cat)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
 
@@ -72,7 +72,7 @@ namespace alibaba.Repos
 
                     try
                     {
-                        var res = await sqlQuery.PostQuery(@"UPDATE restaurantcategories SET name =@name, 
+                        var res = await sqlQuery.PostQuery(@"UPDATE restaurantbrands SET name =@name, 
                                                             imgUrl=@imgUrl,
                                                             restaurantId=@restaurantId
                                                             WHERE  id = @id;", parameters);
@@ -87,14 +87,14 @@ namespace alibaba.Repos
 
             return true;
         }
-        public async Task<IEnumerable<DbCategory>> FilterCategories(int restId)
+        public async Task<IEnumerable<DbBrand>> FilterCategories(int restId)
         {
-            SqlORM<DbCategory> sql = new SqlORM<DbCategory>(_dbSettings);
+            SqlORM<DbBrand> sql = new SqlORM<DbBrand>(_dbSettings);
             var parameters = new DynamicParameters();
            
             try
             {
-                return await sql.GetListQuery($@"SELECT id, name,restaurantId ,imgUrl from restaurantcategories
+                return await sql.GetListQuery($@"SELECT id, name,restaurantId ,imgUrl from restaurantbrands
                                                 where restaurantId = {restId}
                                                 ", parameters);
             }
@@ -103,7 +103,7 @@ namespace alibaba.Repos
                 throw (new Exception(e.Message));
             }
         }
-        public async Task<string> DeleteCategory(int catId)
+        public async Task<string> DeleteBrand(int catId)
         {
             SqlORM<string> sql = new SqlORM<string>(_dbSettings);
             var result = "";
@@ -113,7 +113,7 @@ namespace alibaba.Repos
 
             try
             {
-                await sql.PostQuery(@"delete FROM restaurantcategories where Id = @catId ", parameters);
+                await sql.PostQuery(@"delete FROM restaurantbrands where Id = @catId ", parameters);
             }
 
             catch (Exception ex)

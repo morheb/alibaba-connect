@@ -17,7 +17,9 @@ namespace alibaba.Services.Models
         public string Ingredients { get; set; }
         public bool  IsVegan { get; set; }
         public bool  IsVegiterian { get; set; }
-        public bool  IsLowFat { get; set; }
+        public bool IsDiaryFree { get; set; }
+        public bool  IsZeroSugar { get; set; }
+        public bool IsOrganic { get; set; }
         public double  Calories { get; set; }
         public string Image { get; set; }
         public int ETA { get; set; }
