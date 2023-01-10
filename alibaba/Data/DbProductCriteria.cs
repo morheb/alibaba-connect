@@ -7,6 +7,7 @@ namespace alibaba.Data
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
         public int RestaurantId { get; set; }
+        public int Brand { get; set; }
         public int Category { get; set; }
         public bool isOffer { get; set; }
         public int SubCategory { get; set; }

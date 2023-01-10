@@ -146,7 +146,7 @@ namespace alibaba.Repos
 
             try
             {
-                result = await sql.GetQuery(@"SELECT name, price, offer,offerexpirystring, restaurantId, category,subcategory, ingredients, isvegan, isvegiterian, islowfat, image,eta,rating, description, callories   FROM products where Id = @Id ", parameters);
+                result = await sql.GetQuery(@"SELECT*  FROM products where Id = @Id ", parameters);
             }
             catch (MySqlException ex)
             {
@@ -191,7 +191,7 @@ namespace alibaba.Repos
             try
             {
                 var res = await sqlQuery.PostQuery($"UPDATE products SET name ='{prod.Name}',category= '{prod.Category}', subcategory= '{prod.SubCategory}', description ='{prod.Description}',price='{prod.Price}'," +
-                    $"ingredients='{prod.Ingredients}',IsZeroSugar='{prod.IsZeroSugar}',IsOrganic='{prod.IsOrganic}',IsDiaryFree='{prod.IsDiaryFree}',isvegan='{prod.IsVegan}',isvegiterian='{prod.IsVegiterian}'" +
+                    $"ingredients='{prod.Ingredients}',brand = '{prod.Brand}',isZeroSugar={prod.IsZeroSugar},isOrganic={prod.IsOrganic},isDiaryFree={prod.IsDiaryFree},isvegan={prod.IsVegan},isvegiterian={prod.IsVegiterian}" +
                     $",callories='{prod.Calories}'," +
                     $"image='{prod.Image}',eta='{prod.ETA}' WHERE  id = '{prod.Id}';", parameters);
             }
@@ -244,6 +244,10 @@ namespace alibaba.Repos
             {
                 query += $" and category = {criteria.Category }";
             }
+        if(criteria.Brand!=0)
+            {
+                query += $" and brand = {criteria.Brand }";
+            }
         if(criteria.SubCategory!=0)
             {
                 query += $" and subcategory = {criteria.SubCategory }";
@@ -288,7 +292,7 @@ namespace alibaba.Repos
 
         try
         {
-            var res =await sql.GetListQuery($@"SELECT id, name, category,subcategory,rating, image, price,description, offer, offerexpirystring from products
+            var res =await sql.GetListQuery($@"SELECT * from products
                                                 where name like '%{criteria.Name}%' {query} and rating >= {criteria.Rating}   order by {top}  {range}
 
                                                 ", parameters);

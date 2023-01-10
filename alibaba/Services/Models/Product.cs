@@ -10,8 +10,11 @@ namespace alibaba.Services.Models
         public int RestaurantId { get; set; }
         public string Name { get; set; }
         public int Category { get; set; }
+        public int Brand { get; set; }
         public int SubCategory { get; set; }
         public double Price { get; set; }
+        public bool IsFav { get; set; }
+
         public double Offer { get; set; }
         public DateTime OfferExpiry { get; set; }
         public string Ingredients { get; set; }

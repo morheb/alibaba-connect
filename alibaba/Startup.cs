@@ -59,6 +59,8 @@ namespace alibaba
             services.AddTransient<IConstantRepo, ConstantRepo>();
             services.AddTransient<ConstantService>();
             services.AddTransient<IBannerRepo, BannerRepo>();
+            services.AddTransient<BrandService>();
+            services.AddTransient<IBrandRepo, BrandRepo>();
             services.AddTransient<BannerService>();
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<RestaurantService>();

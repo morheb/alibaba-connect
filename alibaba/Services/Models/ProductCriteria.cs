@@ -9,6 +9,7 @@ namespace alibaba.Services.Models
         public double Rating { get; set; }
         public int RestaurantId { get; set; }
         public int Category { get; set; }
+        public int Brand { get; set; }
         public int SubCategory { get; set; }
         public bool isOffer { get; set; }
         public bool IsVegan { get; set; }

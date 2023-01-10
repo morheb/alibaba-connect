@@ -16,6 +16,8 @@ namespace alibaba.Data
         public double Offer { get; set; }
         public DateTime OfferExpiry { get; set; }
         public string OfferExpiryString { get; set; }
+        public int Brand { get; set; }
+        public bool IsFav { get; set; }
         public bool IsVegan { get; set; }
         public bool IsVegiterian { get; set; }
         public bool IsDiaryFree { get; set; }
