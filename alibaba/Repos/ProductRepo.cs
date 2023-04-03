@@ -50,13 +50,13 @@ namespace alibaba.Repos
             parameters.Add("@image", prod.Image);
             parameters.Add("@eta", prod.ETA);
             parameters.Add("@rating", prod.Rating);
-            parameters.Add("@description", prod.Description);
+            parameters.Add("@description", prod.Unit);
 
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into products (name,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price, restaurantId , ingredients,callories,image,eta,rating) VALUES 
-(@name,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@calories,@image,@eta,@rating) ",
+                var res = await sqlQuery.PostQuery(@"insert into products (name, unit,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price, restaurantId , ingredients,callories,image,eta,rating) VALUES 
+(@name,@unit,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@calories,@image,@eta,@rating) ",
                parameters);
             }
             catch (Exception e)

@@ -22,6 +22,7 @@ namespace alibaba.Data
         public bool IsVegiterian { get; set; }
         public bool IsDiaryFree { get; set; }
         public bool IsOrganic { get; set; }
+        public bool Unit { get; set; }
         public bool IsZeroSugar { get; set; }
         public double  Calories { get; set; }
         public string Image { get; set; }

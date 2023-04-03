@@ -15,6 +15,7 @@ namespace alibaba.Services.Models
         public double Price { get; set; }
         public bool IsFav { get; set; }
 
+        public string Unit { get; set; }
         public double Offer { get; set; }
         public DateTime OfferExpiry { get; set; }
         public string Ingredients { get; set; }
