@@ -10,6 +10,9 @@ namespace alibaba.Services.Models
         public string UserName { get; set; }
         public int Status { get; set; }
         public double Rating { get; set; }
+
+        public bool EmailVerified { get; set; }
+        public bool PhoneVerified { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
         public string PhoneNumber { get; set; }

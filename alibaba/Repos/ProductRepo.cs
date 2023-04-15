@@ -28,7 +28,7 @@ namespace alibaba.Repos
         //    throw new NotImplementedException();
         //}
 
-      
+
         public async Task<bool> PostProductAsync(DbProduct prod)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
@@ -73,7 +73,7 @@ namespace alibaba.Repos
         //    throw new NotImplementedException();
         //}
 
-    
+
 
         //public async Task<IEnumerable<DbProduct>> FilterProductsAsync(DbProductCriteria criteria)
         //{
@@ -110,7 +110,7 @@ namespace alibaba.Repos
                 if (ex.Message.Equals("Sequence contains no elements"))
                 {
                     var n = ex.Number;
-                    
+
                 }
             }
             catch (Exception ex)
@@ -118,11 +118,12 @@ namespace alibaba.Repos
                 if (ex.Message.Equals("Sequence contains no elements"))
                 {
 
-                    return new DbResponse { 
-                    Data = "error",
-                    Error = ex.Message,
-                    Success = false
-                    
+                    return new DbResponse
+                    {
+                        Data = "error",
+                        Error = ex.Message,
+                        Success = false
+
                     };
                 }
             }
@@ -135,7 +136,7 @@ namespace alibaba.Repos
             };
         }
 
-        
+
         public async Task<DbProduct> GetProductByIdAsync(int resId)
         {
             SqlORM<DbProduct> sql = new SqlORM<DbProduct>(_dbSettings);
@@ -205,7 +206,7 @@ namespace alibaba.Repos
 
             return true;
         }
-     public async Task<bool> SetOfferAsync(DbProductOfferRequest prod)
+        public async Task<bool> SetOfferAsync(DbProductOfferRequest prod)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
             var expireydate = prod.OfferExpiry.ToString("yyyy-MM-dd HH-mm-ss");
@@ -229,106 +230,138 @@ namespace alibaba.Repos
 
             return true;
         }
-        public async Task<IEnumerable<DbProduct>> FilterProducts(DbProductCriteria  criteria)
-    {
-        SqlORM<DbProduct> sql = new SqlORM<DbProduct>(_dbSettings);
-        var parameters = new DynamicParameters();
-        string top = "name";
+        public async Task<IEnumerable<DbProduct>> GetProductListByIdsAsync(List<int> ids)
+
+        {
+            SqlORM<DbProduct> sql = new SqlORM<DbProduct>(_dbSettings);
+            var parameters = new DynamicParameters();
+
+
+            try
+            {
+                string query = "";
+                foreach (int id in ids)
+                {
+                    query += $" {id},";
+                }
+               
+                query = query.TrimEnd(',');
+               
+
+                var res = await sql.GetListQuery($@"SELECT * from products
+                                                where id in ( {query} )
+
+                                                ", parameters);
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
+        }
+        public async Task<IEnumerable<DbProduct>> FilterProducts(DbProductCriteria criteria)
+        {
+            SqlORM<DbProduct> sql = new SqlORM<DbProduct>(_dbSettings);
+            var parameters = new DynamicParameters();
+            string top = "name";
             string query = "";
             string range = " ";
-        if(criteria.RestaurantId!=0)
+            if (criteria.RestaurantId != 0)
             {
                 query += $" and restaurantId = {criteria.RestaurantId}";
             }
-        if(criteria.Category!=0)
+            if (criteria.Category != 0)
             {
                 query += $" and category = {criteria.Category }";
             }
-        if(criteria.Brand!=0)
+            if (criteria.Brand != 0)
             {
                 query += $" and brand = {criteria.Brand }";
             }
-        if(criteria.SubCategory!=0)
+            if (criteria.SubCategory != 0)
             {
                 query += $" and subcategory = {criteria.SubCategory }";
             }
-        if(criteria.IsDiaryFree)
+            if (criteria.IsDiaryFree)
             {
                 query += $" and IsDiaryFree=true ";
             }
-        if(criteria.IsOrganic)
+            if (criteria.IsOrganic)
             {
                 query += $" and IsOrganic=true ";
             }
-        if(criteria.IsVegan)
+            if (criteria.IsVegan)
             {
                 query += $" and isVegan=true ";
             }
-        if(criteria.IsVegiterian)
+            if (criteria.IsVegiterian)
             {
                 query += $" and IsVegiterian=true ";
             }
-        if(criteria.IsZeroSugar)
+            if (criteria.IsZeroSugar)
             {
                 query += $" and IsZeroSugar=true ";
             }
-        if(criteria.isOffer)
+            if (criteria.isOffer)
             {
                 query += $" and offerexpiry > DATE_ADD(NOW(), INTERVAL 9 HOUR)";
             }
-        if (criteria.IsTop)
-        {
-            top = " rating desc";
+            if (criteria.IsTop)
+            {
+                top = " rating desc";
 
-        }
+            }
 
-        if (criteria.PageNumber!=0)
-        {
-            range += $" LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}";
+            if (criteria.PageNumber != 0)
+            {
+                range += $" LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}";
 
-        }
-        parameters.Add("@name", criteria.Name);
+            }
+            parameters.Add("@name", criteria.Name);
 
 
-        try
-        {
-            var res =await sql.GetListQuery($@"SELECT * from products
+            try
+            {
+                var res = await sql.GetListQuery($@"SELECT * from products
                                                 where name like '%{criteria.Name}%' {query} and rating >= {criteria.Rating}   order by {top}  {range}
 
                                                 ", parameters);
 
                 return res;
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
         }
-        catch (Exception e)
-        {
-            throw (new Exception(e.Message));
-        }
+
+
+        //public async Task<bool> SetProductStatusAsync(DbProductStatus prodaurant)
+        //{
+        //    SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
+
+
+        //            var parameters = new DynamicParameters();
+        //            parameters.Add("@id", prodaurant.Id);
+
+        //            parameters.Add("@status", prodaurant.Status);
+
+
+        //            try
+        //            {
+        //                var res = await sqlQuery.PostQuery(@"UPDATE prodaurant SET status =@status, 
+
+        //                                                    WHERE  id = @id;", parameters);
+        //            }
+        //            catch (Exception e)
+        //            {
+        //                throw (new Exception(e.Message));
+        //            }
+
+        //    return true;
+        //}
+
+
     }
-    //public async Task<bool> SetProductStatusAsync(DbProductStatus prodaurant)
-    //{
-    //    SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
-
-
-    //            var parameters = new DynamicParameters();
-    //            parameters.Add("@id", prodaurant.Id);
-
-    //            parameters.Add("@status", prodaurant.Status);
-
-
-    //            try
-    //            {
-    //                var res = await sqlQuery.PostQuery(@"UPDATE prodaurant SET status =@status, 
-
-    //                                                    WHERE  id = @id;", parameters);
-    //            }
-    //            catch (Exception e)
-    //            {
-    //                throw (new Exception(e.Message));
-    //            }
-
-    //    return true;
-    //}
-
-
-}
 }

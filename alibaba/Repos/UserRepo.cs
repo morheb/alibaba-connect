@@ -38,6 +38,8 @@ namespace alibaba.Repos
             parameters.Add("@firebaseToken", user.FirebaseToken);
             parameters.Add("@image", user.Image);
             parameters.Add("@type", user.UserType);
+            parameters.Add("@emailVerified", user.EmailVerified);
+            parameters.Add("@phoneVerified", user.PhoneVerified);
             try
             {
                 userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
@@ -51,8 +53,8 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into users (firebaseid,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
-                                                    (@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
+                var res = await sqlQuery.PostQuery(@"insert into users (firebaseid,0, 0,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
+                                                    (@firebaseid,@emailVerified, @phoneVerified,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
                parameters);
             }
             catch (Exception e)
@@ -202,11 +204,13 @@ namespace alibaba.Repos
             parameters.Add("@firebaseToken", user.FirebaseToken);
             parameters.Add("@image", user.Image);
             parameters.Add("@type", user.UserType);
+            parameters.Add("@emailVerified", user.EmailVerified);
+            parameters.Add("@phoneVerified", user.PhoneVerified);
 
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"UPDATE users SET 
+                var res = await sqlQuery.PostQuery(@"UPDATE users SET emailverified = @emailVerified, phoneVerified = @phoneVerified,
                                                              firebaseid =@firebaseid,rating = @rating, email=@email,image= @image, usertype = @type,
                                                             username= @username, address =@address , location = @location,
                                                             phonenumber=@phone,  firebasetoken=@firebasetoken 

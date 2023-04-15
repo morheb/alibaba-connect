@@ -26,6 +26,12 @@ namespace alibaba.Controllers
         {
             var result = await _pService.GetProductById(id);
             return result;
+        }[Route("getproductsList")]
+        [HttpPost]
+        public async Task<IEnumerable<Product>> GetProductListByIds([FromBody] List<int> ids)
+        {
+            var result = await _pService.GetProductListByIds(ids);
+            return result;
         }
         
         [Route("deleteproduct/{id}")]

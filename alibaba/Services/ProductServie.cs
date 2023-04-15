@@ -35,6 +35,14 @@ namespace alibaba
             return product;
         }
         
+        public async Task<IEnumerable<Product>> GetProductListByIds(List<int> ids)
+        {
+
+            var prod = await _pRepo.GetProductListByIdsAsync(ids);
+            var product = _mapper.Map<IEnumerable<Product>>(prod);
+            return product;
+        }
+        
         public async Task<Response> DeleteProductById(int id)
         {
 
@@ -104,22 +112,30 @@ namespace alibaba
             var prods = await _pRepo.FilterProducts(dbCriteria);
             try
             {
-                foreach (DbProduct prod in prods)
+                if (prods != null)
                 {
-                    if (!string.IsNullOrEmpty(prod.OfferExpiryString))
+                    foreach (DbProduct prod in prods)
                     {
-                       var parts = prod.OfferExpiryString.Split(' ');
-                        DateTime date = DateTime.Parse(parts[0]);
+                        if (!string.IsNullOrEmpty(prod.OfferExpiryString))
+                        {
+                            var parts = prod.OfferExpiryString.Split(' ');
+                            DateTime date = DateTime.Parse(parts[0]);
 
-                        var time = parts[1].Split('-');
-                        Console.WriteLine(time[0]);
-                        Console.WriteLine(time[1]);
-                        Console.WriteLine(time[2]);
-                        TimeSpan ts = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
-                        prod.OfferExpiry = date + ts;
+                            var time = parts[1].Split('-');
+                            Console.WriteLine(time[0]);
+                            Console.WriteLine(time[1]);
+                            Console.WriteLine(time[2]);
+                            TimeSpan ts = new TimeSpan(int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
+                            prod.OfferExpiry = date + ts;
 
+                        }
                     }
                 }
+                else
+                {
+                    prods = new List<DbProduct>();
+                }
+                
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);

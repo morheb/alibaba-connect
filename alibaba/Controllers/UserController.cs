@@ -25,7 +25,24 @@ namespace alibaba.Controllers
         public async Task<User> GetUserById([FromRoute] int id)
         {
             var result = await _uservice.GetUserById(id);
+            
             return result;
+        }
+        
+        [Route("isEmailVerified/{id}")]
+        [HttpGet]
+        public async Task<bool> IsEmailVerified([FromRoute] int id)
+        {
+            var result = await _uservice.GetUserById(id);
+            return result.EmailVerified;
+        }
+        
+        [Route("isPhoneVerified/{id}")]
+        [HttpGet]
+        public async Task<bool> IsPhoneVerified([FromRoute] int id)
+        {
+            var result = await _uservice.GetUserById(id);
+            return result.EmailVerified;
         }
         
         [Route("getUserByFirebaseId/{id}")]
@@ -45,13 +62,40 @@ namespace alibaba.Controllers
         }
 
         [HttpPut("updateUser")]
-
         public async Task<string> updateuser([FromBody] User user)
         {
             var result = await _uservice.GetUserById(user.Id);
             if (result != null)
             {
                 await _uservice.UpdateUser(user);
+                return "success";
+            }
+
+            return "user does not exist";
+
+        }
+        [HttpPut("VerifyPhoneNumber/{id}")]
+        public async Task<string> VerifyPhoneNumber([FromRoute] int id)
+        {
+            var result = await _uservice.GetUserById(id);
+            if (result != null)
+            {
+                result.PhoneVerified = true;
+                await _uservice.UpdateUser(result);
+                return "success";
+            }
+
+            return "user does not exist";
+
+        }
+        [HttpPut("VerifyEmail/{id}")]
+        public async Task<string> VerifyEmail([FromRoute] int id)
+        {
+            var result = await _uservice.GetUserById(id);
+            if (result != null)
+            {
+                result.EmailVerified = true;
+                await _uservice.UpdateUser(result);
                 return "success";
             }
 
