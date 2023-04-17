@@ -53,8 +53,10 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into users (firebaseid,0, 0,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
-                                                    (@firebaseid,@emailVerified, @phoneVerified,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
+                var res = await sqlQuery.PostQuery(@"insert into users (firebaseId,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
+                                                    (@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
+
+
                parameters);
             }
             catch (Exception e)
