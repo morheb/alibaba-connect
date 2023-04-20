@@ -102,7 +102,10 @@ namespace alibaba
             app.UseHttpMethodOverride();
             app.UseForwardedHeaders();
             app.UseRouting();
-
+            app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI();
