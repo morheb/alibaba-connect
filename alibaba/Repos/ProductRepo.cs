@@ -32,9 +32,9 @@ namespace alibaba.Repos
         public async Task<bool> PostProductAsync(DbProduct prod)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
-
+            var productId = 0;
             var parameters = new DynamicParameters();
-            parameters.Add("@id", prod.Id);
+
             parameters.Add("@name", prod.Name);
             parameters.Add("@restaurantId", prod.RestaurantId);
             parameters.Add("@category", prod.Category);
@@ -46,17 +46,28 @@ namespace alibaba.Repos
             parameters.Add("@IsDiaryFree", prod.IsDiaryFree);
             parameters.Add("@IsOrganic", prod.IsOrganic);
             parameters.Add("@IsZeroSugar", prod.IsZeroSugar);
-            parameters.Add("@calories", prod.Calories);
+            parameters.Add("@callories", prod.Calories);
             parameters.Add("@image", prod.Image);
             parameters.Add("@eta", prod.ETA);
             parameters.Add("@rating", prod.Rating);
-            parameters.Add("@description", prod.Unit);
+            parameters.Add("@unit", prod.Unit);
+            parameters.Add("@description", prod.Description);
+            try
+            {
+                productId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
+                                                TABLE_SCHEMA = 'qeiapmmy_AllBaba_store' AND
+                                                TABLE_NAME = 'products'  ", parameters) - 1;
 
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into products (name, unit,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price, restaurantId , ingredients,callories,image,eta,rating) VALUES 
-(@name,@unit,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@calories,@image,@eta,@rating) ",
+                var res = await sqlQuery.PostQuery(@"insert into products (name, unit,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price,restaurantId ,ingredients,callories,image,eta,rating) VALUES 
+            (@name,@unit,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@callories,@image,@eta,@rating) ",
                parameters);
             }
             catch (Exception e)
