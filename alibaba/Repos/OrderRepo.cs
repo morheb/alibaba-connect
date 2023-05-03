@@ -194,6 +194,7 @@ namespace alibaba.Repos
                 {
                     var n = ex.Number;
                     result = null;
+                  
                 }
             }
             catch (Exception ex)
@@ -203,10 +204,11 @@ namespace alibaba.Repos
 
                     result = null;
                 }
+                return null;
             }
             SqlORM<DbProductOrder> prods = new SqlORM<DbProductOrder>(_dbSettings);
             parameters.Add("@Id", orderId);
-            var products = await prods.GetListQuery(@"select productId as id, o.COUNT as count, p.name , p.image from ordersproducts o join products p on p.id = o.productId  where orderId = @Id", parameters);
+            var products = await prods.GetListQuery(@"select productId as id, o.COUNT as count, p.name ,o.unitPrice,o.totalprice, p.image from ordersproducts o join products p on p.id = o.productId  where orderId = @Id", parameters);
             result.Products = products.AsList<DbProductOrder>();
 
             //SqlORM<DbAddonOrder> addonsSql = new SqlORM<DbAddonOrder>(_dbSettings);
