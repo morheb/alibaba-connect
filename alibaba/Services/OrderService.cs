@@ -31,8 +31,12 @@ namespace alibaba
         {
 
             var res = await _pRepo.GetOrderByIdAsync(id);
-            var rest = _mapper.Map<Order>(res);
-            return rest;
+            if (res != null)
+            {
+                var rest = _mapper.Map<Order>(res);
+                return rest;
+            }
+            return null;
         }
         
         public async Task<int> GetOrderStatistics(OrderCriteria criteria)
