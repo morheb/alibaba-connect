@@ -185,7 +185,7 @@ namespace alibaba.Repos
 
             try
             {
-                result = await sql.GetQuery(@"SELECT o.restaurantId,o.withDelivery, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId,o.status,o.price, o.userId, d.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join users d on d.id = o.driverId join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
+                result = await sql.GetQuery(@"SELECT o.id,o.restaurantId,o.withDelivery, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId,o.status,o.price, o.userId, u.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
             }
             catch (MySqlException ex)
             {
