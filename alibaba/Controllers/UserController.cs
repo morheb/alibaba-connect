@@ -135,7 +135,7 @@ namespace alibaba.Controllers
             return res;
 
         }
-        [HttpDelete("deleteuser/{'userId'}")]
+        [HttpDelete("deleteuser/{userId}")]
         public async Task<string> DeleteUser([FromRoute] int userId)
         {
 
