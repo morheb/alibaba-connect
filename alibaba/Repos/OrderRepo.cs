@@ -353,10 +353,10 @@ namespace alibaba.Repos
             {
                 query += $" and restaurantId = {criteria.RestaurantId}";
             }
-            if (criteria.UserId != 0)
-            {
-                query += $" and userId = {criteria.UserId}";
-            }
+            //if (criteria.UserId != 0)
+            //{
+            //    query += $" and userId = {criteria.UserId}";
+            //}
             if (criteria.Status != 0)
             {
                 if (criteria.Status != -1)

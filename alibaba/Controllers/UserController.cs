@@ -25,10 +25,10 @@ namespace alibaba.Controllers
         public async Task<User> GetUserById([FromRoute] int id)
         {
             var result = await _uservice.GetUserById(id);
-            
+
             return result;
         }
-        
+
         [Route("isEmailVerified/{id}")]
         [HttpGet]
         public async Task<bool> IsEmailVerified([FromRoute] int id)
@@ -36,7 +36,7 @@ namespace alibaba.Controllers
             var result = await _uservice.GetUserById(id);
             return result.EmailVerified;
         }
-        
+
         [Route("isPhoneVerified/{id}")]
         [HttpGet]
         public async Task<bool> IsPhoneVerified([FromRoute] int id)
@@ -44,7 +44,7 @@ namespace alibaba.Controllers
             var result = await _uservice.GetUserById(id);
             return result.EmailVerified;
         }
-        
+
         [Route("getUserByFirebaseId/{id}")]
         [HttpGet]
         public async Task<User> GetUserByFirebaseId([FromRoute] string id)
@@ -119,10 +119,10 @@ namespace alibaba.Controllers
 
         public async Task<string> updateuserActivestatus([FromBody] UserActiveStatus status)
         {
-            
-                await _uservice.SetUserActiveStatus(status);
-                return "success";
-           
+
+            await _uservice.SetUserActiveStatus(status);
+            return "success";
+
 
         }
 
@@ -135,8 +135,8 @@ namespace alibaba.Controllers
             return res;
 
         }
-        [HttpDelete("deleteuser")]
-        public async Task<string> DeleteUser([FromBody] int userId)
+        [HttpDelete("deleteuser/{userId}")]
+        public async Task<string> DeleteUser([FromRoute] int userId)
         {
 
             var res = await _uservice.DeleteUser(userId);
