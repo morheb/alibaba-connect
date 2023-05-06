@@ -393,8 +393,26 @@ namespace alibaba.Repos
             IEnumerable<DbOrder> orders = Enumerable.Empty<DbOrder>();
             try
             {
-                orders = await sql.GetListQuery($@"SELECT o.id, o.withDelivery, r.location as restLocation,o.restaurantId,u.phonenumber as phonenumber, o.driverId,o.status,o.price, o.userId, d.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id  right outer join users d on d.id = o.driverId join restaurants r on r.id =o.restaurantId
-                                                    where {query} LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}
+                orders = await sql.GetListQuery($@"SELECT o.id, 
+       o.withDelivery, 
+       r.location as restLocation,
+       o.restaurantId,
+       u.phonenumber as phonenumber, 
+       o.driverId,
+       o.status,
+       o.price, 
+       o.userId, 
+       d.username as drivername, 
+       r.name as restaurantName , 
+       o.location as location ,
+       o.extraFees ,
+       u.username as username, 
+       o.deliveryFees, 
+       o.type 
+FROM orders o 
+JOIN users u ON o.userid = u.id 
+LEFT JOIN users d ON d.id = o.driverId 
+JOIN restaurants r ON r.id = o.restaurantId  where {query} LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}
 
                                                     ", parameters);
             }
