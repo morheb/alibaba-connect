@@ -57,6 +57,20 @@ namespace alibaba.Controllers
             return "product doesnt exisit";
 
         }
+        [HttpPut("updateOrderDriver/{orderId}/{driverId}")]
+        public async Task<string> UpdateOerderDriver([FromRoute] int orderId, [FromRoute]  int driverId)
+        {
+            var result = await _oService.GetOrderById(orderId);
+            if (result != null)
+            {
+                
+                await _oService.UpdateOrderDriver(orderId, driverId);
+                return "success";
+            }
+
+            return "product doesnt exisit";
+
+        }
 
         //[HttpPut("setOrderstatus")]
         //public async Task<bool> updateRes([FromBody] OrderStatus status)

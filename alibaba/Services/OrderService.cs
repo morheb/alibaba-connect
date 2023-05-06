@@ -68,6 +68,12 @@ namespace alibaba
 
             return res;
         }
+        public async Task<bool> UpdateOrderDriver(int orderId, int  driverId)
+        {
+            var res = await _pRepo.UpdateOrderDriver(orderId, driverId);
+
+            return res;
+        }
         //public async Task<bool>SetOrderStatus(OrderStatus status )
         //{
         //    DbOrderStatus statusDb = _mapper.Map<DbOrderStatus>(status);

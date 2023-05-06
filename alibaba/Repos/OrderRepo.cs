@@ -52,7 +52,7 @@ namespace alibaba.Repos
             try
             {
                 var res = await sqlQuery.PostQuery(@"insert into orders (restaurantId,time,location,driverId,status,price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
-                                                                         (@restaurantId,@time, @location,@driverId,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
+                                                                         (@restaurantId,@time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
                parameters);
             }
             catch (Exception e)
@@ -147,6 +147,30 @@ namespace alibaba.Repos
             {
                 var res = await sqlQuery.PostQuery(@"UPDATE orders SET 
                                                                status=@status , driverId=@driverId, withDelivery=@withDelivery
+                                                            WHERE  id = @id;", parameters);
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
+            return true;
+        }
+
+
+
+
+        public async Task<bool> UpdateOrderDriver(int orderId, int driverId )
+        {
+            SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", orderId);
+            parameters.Add("@driverId", driverId);
+
+            try
+            {
+                var res = await sqlQuery.PostQuery(@"UPDATE orders SET 
+                                                               driverId=@driverId
                                                             WHERE  id = @id;", parameters);
             }
             catch (Exception e)
@@ -323,7 +347,7 @@ namespace alibaba.Repos
 
             string query = "userId !=0";
         
-                query += $" and withDelivery = {criteria.WithDelivery} ";
+             //   query += $" and withDelivery = {criteria.WithDelivery} ";
             
             if (criteria.RestaurantId != 0)
             {
@@ -369,7 +393,7 @@ namespace alibaba.Repos
             IEnumerable<DbOrder> orders = Enumerable.Empty<DbOrder>();
             try
             {
-                orders = await sql.GetListQuery($@"SELECT o.id, o.withDelivery, r.location as restLocation,o.restaurantId,u.phonenumber as phonenumber, o.driverId,o.status,o.price, o.userId, d.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join users d on d.id = o.driverId join restaurants r on r.id =o.restaurantId
+                orders = await sql.GetListQuery($@"SELECT o.id, o.withDelivery, r.location as restLocation,o.restaurantId,u.phonenumber as phonenumber, o.driverId,o.status,o.price, o.userId, d.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id  right outer join users d on d.id = o.driverId join restaurants r on r.id =o.restaurantId
                                                     where {query} LIMIT {criteria.PageSize * (criteria.PageNumber - 1)},{criteria.PageNumber * criteria.PageSize}
 
                                                     ", parameters);
