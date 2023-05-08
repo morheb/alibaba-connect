@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using alibaba.Data;
 using alibaba.Services.Models;
+using System.Linq;
+using System;
 
 namespace alibaba.Controllers
 {
@@ -55,10 +57,21 @@ namespace alibaba.Controllers
 
 
         [HttpPost("register")]
-        public async Task<int> RegisterUser([FromBody] User user)
+        public async Task<ActionResult<string>> RegisterUser([FromBody] User user)
         {
+            var users = await _uservice.FilterUsers(new UserCriteria()
+            {
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            });
+            if (users.Any<User>()) {
+                if (users.First().PhoneNumber == user.PhoneNumber)
+                { return BadRequest("Phone Number is Already Used"); }
+                return BadRequest("Email is Already Used");
+
+            };
             var result = await _uservice.PostUser(user);
-            return result;
+            return Ok(result.ToString());
         }
 
         [HttpPut("updateUser")]
