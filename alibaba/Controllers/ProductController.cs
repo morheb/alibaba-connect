@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using alibaba.Data;
 using alibaba.Services.Models;
+using System.Transactions;
 
 namespace alibaba.Controllers
 {
@@ -39,6 +40,15 @@ namespace alibaba.Controllers
         public async Task<Response> DeleteProductById([FromRoute] int id)
         {
             var result = await _pService.DeleteProductById(id);
+            return result;
+        }
+        
+        
+        [Route("updatePrices/{id}/{percentage}")]
+        [HttpDelete]
+        public async Task<Response> DeleteProductById([FromRoute] int id, double percentage)
+        {
+            var result = await _pService.UpdatePrices(id, percentage);
             return result;
         }
 

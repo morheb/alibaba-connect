@@ -147,6 +147,56 @@ namespace alibaba.Repos
             };
         }
 
+        
+
+        public async Task<DbResponse> UpdatePrices(int resId, double percentage)
+        {
+            SqlORM<int> sql = new SqlORM<int>(_dbSettings);
+            int result = 0;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@Percentage", percentage);
+            parameters.Add("@RestaurantId", resId);
+
+            try
+            {
+                result = await sql.PostQuery(@" 
+            UPDATE Products
+            SET Price = Price + (Price * @Percentage)
+            WHERE RestaurantId = @RestaurantId ", parameters);
+            }
+            catch (MySqlException ex)
+            {
+
+                if (ex.Message.Equals("Sequence contains no elements"))
+                {
+                    var n = ex.Number;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Equals("Sequence contains no elements"))
+                {
+
+                    return new DbResponse
+                    {
+                        Data = "error",
+                        Error = ex.Message,
+                        Success = false
+
+                    };
+                }
+            }
+            return new DbResponse
+            {
+                Data = "success",
+                Error = null,
+                Success = true
+
+            };
+        }
+
 
         public async Task<DbProduct> GetProductByIdAsync(int resId)
         {

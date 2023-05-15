@@ -51,6 +51,14 @@ namespace alibaba
             var product = _mapper.Map<Response>(res);
             return product;
         }
+          public async Task<Response> UpdatePrices(int restId, double percentage)
+        {
+
+            var res
+                = await _pRepo.UpdatePrices(id, percentage);
+            var product = _mapper.Map<Response>(res);
+            return product;
+        }
         
         public async Task<bool> PostProduct(Product product)
         {
