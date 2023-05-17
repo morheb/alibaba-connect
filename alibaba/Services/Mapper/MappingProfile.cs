@@ -54,6 +54,9 @@ namespace alibaba.Mapper
             CreateMap<ProductCriteria, DbProductCriteria>();
             CreateMap<DbProductCriteria, ProductCriteria>();
 
+            CreateMap<Rating, DbRating>();
+            CreateMap<DbRating, Rating>();
+
             CreateMap<OrderCriteria, DbOrderCriteria>();
             CreateMap<DbOrderCriteria, OrderCriteria>();
              

@@ -67,6 +67,8 @@ namespace alibaba
             services.AddTransient<IProductRepo, ProductRepo>();
             services.AddTransient<ProductService>();
             services.AddTransient<IRestaurantRepo, RestaurantRepo>();
+            services.AddTransient<RatingService>();
+            services.AddTransient<IRatingRepo, RatingRepo>();
             services.AddLogging();
             services.AddSwaggerGen();
             services.Configure<ForwardedHeadersOptions>(options =>
