@@ -31,7 +31,7 @@ namespace alibaba.Repos
 
         public async Task<bool> PostRatingAsync(DbRating rating)
         {
-            SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
+            SqlORM<double> sqlQuery = new SqlORM<double>(_dbSettings);
 
             var parameters = new DynamicParameters();
             parameters.Add("@productId", rating.ProductId);
@@ -62,7 +62,7 @@ namespace alibaba.Repos
                 var averageRatingParams = new DynamicParameters();
                 averageRatingParams.Add("@productId", rating.ProductId);
 
-                var averageRating = await sqlQuery.GetQuery(@"SELECT AVG(stars) 
+                var averageRating = await sqlQuery.GetQuery(@"SELECT ROUND(AVG(stars), 2) 
                                                      FROM rating 
                                                      WHERE productId = @productId",
                                                              averageRatingParams);
