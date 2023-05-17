@@ -79,7 +79,7 @@ namespace alibaba.Controllers
             var result = await _uservice.PostUser(user);
             return Ok(result.ToString());
         }
-
+       
         [HttpPut("updateUser")]
         public async Task<string> updateuser([FromBody] User user)
         {
@@ -91,6 +91,15 @@ namespace alibaba.Controllers
             }
 
             return "user does not exist";
+
+        }
+        [HttpGet("getTokensByType/{type}")]
+        public async Task<IEnumerable<string>> GetTokens([FromRoute] int type)
+        {
+            var result = await _uservice.GetTokensByType(type);
+        
+
+            return result;
 
         }
         [HttpPut("VerifyPhoneNumber/{id}")]

@@ -124,6 +124,38 @@ namespace alibaba.Repos
             return result;
         }
         
+       public async Task<IEnumerable<string>> GetTokensByType(int type)
+        {
+            SqlORM<string> sql = new SqlORM<string>(_dbSettings);
+            IEnumerable<string> result = null;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@type", type);
+
+            try
+            {
+                result = await sql.GetListQuery(@"SELECT firebasetoken FROM users where usertype = @type ", parameters);
+            }
+            catch (MySqlException ex)
+            {
+
+                if (ex.Message.Equals("Sequence contains no elements"))
+                {
+                    var n = ex.Number;
+                    result = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Equals("Sequence contains no elements"))
+                {
+
+                    result = null;
+                }
+            }
+            return result;
+        }
+        
         public async Task<DbUser> GetUserByFirebaseId(string firebaseId)
         {
             SqlORM<DbUser> sql = new SqlORM<DbUser>(_dbSettings);

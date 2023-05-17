@@ -33,6 +33,13 @@ namespace alibaba
             var user = _mapper.Map<User>(res);
             return user;
         }
+        public async Task<IEnumerable<string>> GetTokensByType(int type)
+        {
+
+            var res = await _uRepo.GetTokensByType(type);
+         
+            return res;
+        }
         public async Task<User> GetUserByFirebaseId(string id)
         {
 

@@ -45,7 +45,7 @@ namespace alibaba.Controllers
         
         
         [Route("updatePrices/{id}/{percentage}")]
-        [HttpDelete]
+        [HttpPut]
         public async Task<Response> DeleteProductById([FromRoute] int id, double percentage)
         {
             var result = await _pService.UpdatePrices(id, percentage);
@@ -89,26 +89,26 @@ namespace alibaba.Controllers
         }
         
         
-        [HttpPut("ChangeProductsPries")]
-        public async Task<ChangePricesResponse> SetOffer([FromBody] ChangePricesRequest request)
-        {
-         try
-            {
-               var result =  await _pService.ChangePrices(request);
-                return result;
-            }
-            catch
-            {
-                return new ChangePricesResponse()
-                {
-                    Products = null,
-                    Success = false,
-                    Error = "Error occured"
-                };
+        //[HttpPut("ChangeProductsPries")]
+        //public async Task<ChangePricesResponse> SetOffer([FromBody] ChangePricesRequest request)
+        //{
+        // try
+        //    {
+        //       var result =  await _pService.ChangePrices(request);
+        //        return result;
+        //    }
+        //    catch
+        //    {
+        //        return new ChangePricesResponse()
+        //        {
+        //            Products = null,
+        //            Success = false,
+        //            Error = "Error occured"
+        //        };
 
-            }  
+        //    }  
 
-        }
+        //}
 
 
         [HttpPost("FilterProduct")]

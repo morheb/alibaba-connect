@@ -55,7 +55,7 @@ namespace alibaba
         {
 
             var res
-                = await _pRepo.UpdatePrices(id, percentage);
+                = await _pRepo.UpdatePrices(restId, percentage);
             var product = _mapper.Map<Response>(res);
             return product;
         }

@@ -161,8 +161,8 @@ namespace alibaba.Repos
             try
             {
                 result = await sql.PostQuery(@" 
-            UPDATE Products
-            SET Price = Price + (Price * @Percentage)
+            UPDATE products
+            SET price = price + (price * @Percentage)
             WHERE RestaurantId = @RestaurantId ", parameters);
             }
             catch (MySqlException ex)
@@ -170,8 +170,14 @@ namespace alibaba.Repos
 
                 if (ex.Message.Equals("Sequence contains no elements"))
                 {
-                    var n = ex.Number;
 
+                    return new DbResponse
+                    {
+                        Data = "error",
+                        Error = ex.Message,
+                        Success = false
+
+                    };
                 }
             }
             catch (Exception ex)
