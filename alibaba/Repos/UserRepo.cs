@@ -40,6 +40,7 @@ namespace alibaba.Repos
             parameters.Add("@type", user.UserType);
             parameters.Add("@emailVerified", user.EmailVerified);
             parameters.Add("@phoneVerified", user.PhoneVerified);
+            parameters.Add("@locationDescription", user.LocationDescription);
             try
             {
                 userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
@@ -53,8 +54,8 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into users (firebaseId,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
-                                                    (@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
+                var res = await sqlQuery.PostQuery(@"insert into users (locationDescription,firebaseId,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
+                                                    (@locationDescription,@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
 
 
                parameters);
@@ -240,11 +241,12 @@ namespace alibaba.Repos
             parameters.Add("@type", user.UserType);
             parameters.Add("@emailVerified", user.EmailVerified);
             parameters.Add("@phoneVerified", user.PhoneVerified);
+            parameters.Add("@locationDescription", user.LocationDescription);
 
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"UPDATE users SET emailverified = @emailVerified, phoneVerified = @phoneVerified,
+                var res = await sqlQuery.PostQuery(@"UPDATE users SET locationDescription = @locationDescription,emailverified = @emailVerified, phoneVerified = @phoneVerified,
                                                              firebaseid =@firebaseid,rating = @rating, email=@email,image= @image, usertype = @type,
                                                             username= @username, address =@address , location = @location,
                                                             phonenumber=@phone,  firebasetoken=@firebasetoken 
