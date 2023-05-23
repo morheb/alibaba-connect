@@ -5,6 +5,8 @@
         public int Id { get; set; }
         public int Status { get; set; }
         public bool  WithDelivery { get; set; }
+        public string DriverNumber { get; set; }
+
         public int DriverId { get; set; }
 
     }

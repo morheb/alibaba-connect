@@ -28,6 +28,7 @@ namespace alibaba.Services.Models
         public string DriverName { get; set; }
         public int ExtraFees { get; set; }
         public int DeliveryFees { get; set; }
+        public string DriverNumber { get; set; }
 
     }
 

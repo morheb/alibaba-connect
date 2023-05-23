@@ -46,14 +46,15 @@ namespace alibaba.Repos
             parameters.Add("@location", order.Location);
             parameters.Add("@time", order.Time);
             parameters.Add("@date", order.Date);
+            parameters.Add("@driverNumber", order.DriverNumber);
 
             parameters.Add("@status", order.Status);
             parameters.Add("@price", order.Price);
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into orders (date,restaurantId,time,location,driverId,status,price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
-                                                                         (@date,@restaurantId,@time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
+                var res = await sqlQuery.PostQuery(@"insert into orders (driverNumber,date,restaurantId,time,location,driverId,status,price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
+                                                                         (@driverNumber,@date,@restaurantId,@time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
                parameters);
             }
             catch (Exception e)
@@ -143,10 +144,11 @@ namespace alibaba.Repos
             parameters.Add("@status", dborderStatus.Status);
             parameters.Add("@driverId", dborderStatus.DriverId);
             parameters.Add("@withDelivery", dborderStatus.WithDelivery);
+            parameters.Add("@driverNumber", dborderStatus.DriverNumber);
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"UPDATE orders SET 
+                var res = await sqlQuery.PostQuery(@"UPDATE orders SET driverNumber=@driverNumber,
                                                                status=@status , driverId=@driverId, withDelivery=@withDelivery
                                                             WHERE  id = @id;", parameters);
             }
@@ -393,7 +395,7 @@ namespace alibaba.Repos
             IEnumerable<DbOrder> orders = Enumerable.Empty<DbOrder>();
             try
             {
-                orders = await sql.GetListQuery($@"SELECT o.id,o.time,o.date,
+                orders = await sql.GetListQuery($@"SELECT o.id,o.time,o.date,o.driverNumber,
        o.withDelivery, 
        r.location as restLocation,
        o.restaurantId,
