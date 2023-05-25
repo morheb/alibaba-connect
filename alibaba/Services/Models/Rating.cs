@@ -8,7 +8,7 @@ namespace alibaba.Services.Models
 
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public int Stars { get; set; }
+        public double Stars { get; set; }
         public int UserId { get; set; }
 
     }

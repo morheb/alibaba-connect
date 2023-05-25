@@ -23,11 +23,12 @@ namespace alibaba.Services.Models
         public string Username { get; set; }
         public string PhoneNumber { get; set; }
         public string Location { get; set; }
-
+        public DateTime Date { get; set; }
         public int DriverId { get; set; }
         public string DriverName { get; set; }
         public int ExtraFees { get; set; }
         public int DeliveryFees { get; set; }
+        public string DriverNumber { get; set; }
 
     }
 
