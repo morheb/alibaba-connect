@@ -11,8 +11,8 @@ namespace alibaba.interfaces
         Task<DbResponse> PostOrderAsync(DbOrder order);
         Task<bool> UpdateOrderDriver(int orderId, int driverId);
 
-        Task<bool> UpdateOrderStatusAsync(DbOrderStatus order ); 
-
+        Task<bool> UpdateOrderStatusAsync(DbOrderStatus order );
+        Task<IEnumerable<DbOrder>> GetShopOrders(int shopId);
         Task<IEnumerable<DbOrder>> FilterOrders(DbOrderCriteria criteria);
     }
 }

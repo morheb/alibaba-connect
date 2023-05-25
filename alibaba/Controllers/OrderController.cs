@@ -94,6 +94,15 @@ namespace alibaba.Controllers
             return res;
 
         }
+        [HttpGet("GetShopOrders/{shopId}")]
+        public async Task<IEnumerable<Order>> GetShopOrders([FromRoute] int shopId)
+        {
+
+            var res = await _oService.GetShopOrders(shopId);
+            return res;
+
+        }
+       
 
 
     }

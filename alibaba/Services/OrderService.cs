@@ -90,6 +90,13 @@ namespace alibaba
 
             return orders;
         }
+        public async Task<IEnumerable<Order>> GetShopOrders(int shopId)
+        {
+            var res = await _pRepo.GetShopOrders(shopId);
+            IEnumerable<Order> orders = _mapper.Map<IEnumerable<Order>>(res);
+
+            return orders;
+        }
 
         private Order ToOrder (DbOrder dbOrder)
         {

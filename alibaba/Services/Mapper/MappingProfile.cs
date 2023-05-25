@@ -30,7 +30,10 @@ namespace alibaba.Mapper
             CreateMap<DbResponse, Response>();
 
             CreateMap<Response, DbResponse>();
-         
+            CreateMap<DbUser, User>();
+
+            CreateMap<User, DbUser>();
+
             CreateMap<DbUserStatus, UserStatus>();
 
             CreateMap<UserStatus, DbUserStatus>();

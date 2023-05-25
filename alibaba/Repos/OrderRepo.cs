@@ -474,6 +474,102 @@ JOIN restaurants r ON r.id = o.restaurantId  where {query} LIMIT {criteria.PageS
 
 
         }
+       public async Task<IEnumerable<DbOrder>> GetShopOrders(int shopId)
+        {
+            SqlORM<DbOrder> sql = new SqlORM<DbOrder>(_dbSettings);
+            var parameters = new DynamicParameters();
+
+            string query = "userId !=0";
+        
+          
+
+            
+                query += $" and o.status in ( 1, 2) and restaurantId = {shopId}";
+            
+
+
+            IEnumerable<DbOrder> orders = Enumerable.Empty<DbOrder>();
+            try
+            {
+                orders = await sql.GetListQuery($@"SELECT o.id, 
+       o.withDelivery, 
+       r.location as restLocation,
+       o.restaurantId,
+       u.phonenumber as phonenumber, 
+       o.driverId,
+       o.status,
+       o.price, 
+       o.userId, 
+       d.username as drivername, 
+       r.name as restaurantName , 
+       o.location as location ,
+       o.extraFees ,
+       u.username as username, 
+       o.deliveryFees, 
+       o.type 
+FROM orders o 
+JOIN users u ON o.userid = u.id 
+LEFT JOIN users d ON d.id = o.driverId 
+JOIN restaurants r ON r.id = o.restaurantId  where {query}  ", parameters);
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
+            var productSql = new SqlORM<DbProductOrder>(_dbSettings);
+            parameters = new DynamicParameters();
+            if(orders==null && orders.Count() == 0)
+            {
+                return Enumerable.Empty<DbOrder>();
+
+            }
+            foreach (DbOrder order in orders)
+            {
+                IEnumerable<DbProductOrder> products = Enumerable.Empty<DbProductOrder>();
+                try
+                {
+                    products = await productSql.GetListQuery($@"SELECT* from ordersproducts join products on productId = products.id
+                                                    where orderId = {order.Id}
+
+                                                    ", parameters);
+
+                    order.Products = products.AsList<DbProductOrder>();
+                }
+
+                catch (Exception e)
+                {
+                    throw (new Exception(e.Message));
+                }
+            }
+            var addonSql = new SqlORM<DbAddonOrder>(_dbSettings);
+            parameters = new DynamicParameters();
+            foreach (DbOrder order in orders)
+            {
+                IEnumerable<DbAddonOrder> addons = Enumerable.Empty<DbAddonOrder>();
+                try
+                {
+                    addons = await addonSql.GetListQuery($@"SELECT* from orderAddon
+                                                    where orderId = {order.Id}
+
+                                                    ", parameters);
+
+                    order.Addons = addons.AsList<DbAddonOrder>();
+                }
+
+                catch (Exception e)
+                {
+                    throw (new Exception(e.Message));
+                }
+
+            }
+
+
+
+            return orders;
+
+
+
+        }
         //public async Task<bool> SetOrderStatusAsync(DbOrderStatus orderaurant)
         //{
         //    SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
