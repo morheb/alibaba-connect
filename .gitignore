@@ -143,3 +143,13 @@ alibaba/obj/Debug/net5.0/alibaba.GeneratedMSBuildEditorConfig.editorconfig
 /.vs/ProjectEvaluation/alibaba.metadata.v6.1
 /.vs/alibaba/v17/.futdcache.v2
 /.vs/ProjectEvaluation/alibaba.projects.v6.1
+# Ignore publish profile
+*.pubxml
+*.publishsettings
+
+# Ignore DLL files
+*.dll
+/alibaba/obj/Release/net5.0/refint/alibaba.dll
+*.user
+/.vs/alibaba/FileContentIndex/1540d96e-314b-4977-9003-421465a182ec.vsidx
+*.vsidx
