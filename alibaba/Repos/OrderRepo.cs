@@ -44,6 +44,7 @@ namespace alibaba.Repos
             parameters.Add("@deliveryFees", order.DeliveryFees);
             parameters.Add("@type", order.Type);
             parameters.Add("@location", order.Location);
+            parameters.Add("@address", order.Address);
             parameters.Add("@time", order.Time);
             parameters.Add("@date", order.Date);
             parameters.Add("@driverNumber", order.DriverNumber);
@@ -53,8 +54,8 @@ namespace alibaba.Repos
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into orders (driverNumber, date, restaurantId, time, location, driverId, status, price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
-                                                                         (@driverNumber, @date, @restaurantId, @time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
+                var res = await sqlQuery.PostQuery(@"insert into orders (driverNumber, date, restaurantId, time, location, address, driverId, status, price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
+                                                                         (@driverNumber, @date, @restaurantId, @time, @location, @address, -1, @status, @price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
                parameters);
             }
             catch (Exception e)
@@ -159,9 +160,6 @@ namespace alibaba.Repos
             return true;
         }
 
-
-
-
         public async Task<bool> UpdateOrderDriver(int orderId, int driverId )
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
@@ -183,19 +181,14 @@ namespace alibaba.Repos
             return true;
         }
 
-
-
         //public async Task<IEnumerable<DbOrder>> FilterOrdersAsync(DbOrderCriteria criteria)
         //{
-
         //    string searchQuery = "";
         //    SqlORM<DbOrder> sqlQuery = new SqlORM<DbOrder>(_dbSettings);
         //    var parameters = new DynamicParameters();
         //    if (!string.IsNullOrEmpty(criteria.Name))
         //    {
         //        parameters.Add("@name", criteria.Name);
-
-
         //        searchQuery = $"WHERE name='{criteria.Name}'";
         //    }
         //    return await sqlQuery.GetListQuery($@"SELECT  Id, location, logo, FROM Manufacturers {searchQuery} ", parameters);
@@ -206,13 +199,11 @@ namespace alibaba.Repos
         {
             SqlORM<DbOrder> sql = new SqlORM<DbOrder>(_dbSettings);
             DbOrder result = null;
-
             var parameters = new DynamicParameters();
             parameters.Add("@Id", orderId);
-
             try
             {
-                result = await sql.GetQuery(@"SELECT o.id, o.restaurantId, o.withDelivery, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId, o.status, o.price, o.userId, o.date, u.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
+                result = await sql.GetQuery(@"SELECT o.id, o.restaurantId, o.withDelivery, o.address, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId, o.status, o.price, o.userId, o.date, u.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
             }
             catch (MySqlException ex)
             {
@@ -301,10 +292,6 @@ namespace alibaba.Repos
 
             return result;
         }
-
-
-
-
 
         //    public async Task<bool> UpdateOrderAsync(DbOrder order)
         //    {
@@ -397,13 +384,14 @@ namespace alibaba.Repos
             {
                 orders = await sql.GetListQuery($@"SELECT o.id,o.time,o.date,o.driverNumber,
        o.withDelivery, 
+       o.address,
        r.location as restLocation,
        o.restaurantId,
        u.phonenumber as phonenumber, 
        o.driverId,
        o.status,
        o.price, 
-       o.userId, 
+       o.userId,
        d.username as drivername, 
        r.name as restaurantName , 
        o.location as location ,
@@ -482,14 +470,7 @@ JOIN restaurants r ON r.id = o.restaurantId  where {query} LIMIT {criteria.PageS
             var parameters = new DynamicParameters();
 
             string query = "userId !=0";
-        
-          
-
-            
                 query += $" and o.status in ( 1, 2) and restaurantId = {shopId}";
-            
-
-
             IEnumerable<DbOrder> orders = Enumerable.Empty<DbOrder>();
             try
             {
@@ -499,9 +480,13 @@ JOIN restaurants r ON r.id = o.restaurantId  where {query} LIMIT {criteria.PageS
        o.restaurantId,
        u.phonenumber as phonenumber, 
        o.driverId,
+       o.address,
        o.status,
+       o.date,
+       o.time,
        o.price, 
        o.userId, 
+       o.driverNumber,
        d.username as drivername, 
        r.name as restaurantName , 
        o.location as location ,
