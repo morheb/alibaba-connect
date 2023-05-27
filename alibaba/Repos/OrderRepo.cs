@@ -53,8 +53,8 @@ namespace alibaba.Repos
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into orders (driverNumber,date,restaurantId,time,location,driverId,status,price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
-                                                                         (@driverNumber,@date,@restaurantId,@time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
+                var res = await sqlQuery.PostQuery(@"insert into orders (driverNumber, date, restaurantId, time, location, driverId, status, price, userId, extraFees, withDelivery, deliveryFees, type) VALUES
+                                                                         (@driverNumber, @date, @restaurantId, @time, @location,-1,@status,@price, @userId, @extraFees, @withDelivery, @deliveryFees,@type) ",
                parameters);
             }
             catch (Exception e)
@@ -212,7 +212,7 @@ namespace alibaba.Repos
 
             try
             {
-                result = await sql.GetQuery(@"SELECT o.id,o.restaurantId,o.withDelivery, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId,o.status,o.price, o.userId, u.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
+                result = await sql.GetQuery(@"SELECT o.id, o.restaurantId, o.withDelivery, r.location as restLocation, u.phonenumber as phonenumber,o.time as time, o.driverId, o.status, o.price, o.userId, o.date, u.username as drivername, r.name as restaurantName , o.location as location ,o.extraFees ,u.username as username, o.deliveryFees, o.type FROM orders o join users u on o.userid = u.id join restaurants r on r.id =o.restaurantId where o.Id = @Id ", parameters);
             }
             catch (MySqlException ex)
             {
