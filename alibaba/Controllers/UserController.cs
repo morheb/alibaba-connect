@@ -130,6 +130,22 @@ namespace alibaba.Controllers
             return "user does not exist";
 
         }
+        [HttpGet("FindEmail/{email}")]
+        public async Task<string> VerifyEmail([FromRoute] string email)
+        {
+            var result = await _uservice.FilterUsers(new UserCriteria()
+            {
+                Email = email
+            });
+            if (result != null)
+            {
+              
+                return "success";
+            }
+
+            return "user does not exist";
+
+        }
         [HttpPut("setuserstatus")]
 
         public async Task<string> updateuserstatus([FromBody] UserStatus status)
