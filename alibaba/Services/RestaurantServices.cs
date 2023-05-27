@@ -31,12 +31,12 @@ namespace alibaba
         {
 
             var res = await _rRepo.GetRestaurantByIdAsync(id);
-            var r = res.WorkingHoursEnd.TimeOfDay;
-            var now = DateTime.Now.TimeOfDay;
-            if (r < now)
-            {
-                res.Status = 0;
-            }
+            //var r = res.WorkingHoursEnd.TimeOfDay;
+            //var now = DateTime.Now.TimeOfDay;
+            //if (r < now)
+            //{
+            //    res.Status = 0;
+            //}
             var rest = _mapper.Map<Restaurant>(res);
 
             return rest;
