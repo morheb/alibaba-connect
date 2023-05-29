@@ -302,7 +302,7 @@ namespace alibaba.Repos
             return true;
         }
 
-        public async Task<IEnumerable<string>> FilterUsersList(int  userId)
+        public async Task<IEnumerable<string>> GetUserAddresses(int  userId)
         {
 
             SqlORM<string> sqlQuery = new SqlORM<string>(_dbSettings);
