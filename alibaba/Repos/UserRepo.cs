@@ -22,6 +22,45 @@ namespace alibaba.Repos
             _logger = logger;
         }
 
+        public async Task<int> PostUserAddress(DbUserAddress address)
+        {
+            SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
+            var userId = 0;
+            var parameters = new DynamicParameters();
+
+          
+            parameters.Add("@address", address.Address);
+            parameters.Add("@userId", address.UserId);
+            try
+            {
+                userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
+                                                TABLE_SCHEMA = 'qeiapmmy_AllBaba_store' AND
+                                                TABLE_NAME = 'users'  ", parameters) - 1;
+
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
+            try
+            {
+                var res = await sqlQuery.PostQuery(@"insert into userAddresses (userId,address) VALUES 
+                                                    (@userId,@address) ",
+
+
+               parameters);
+            }
+            catch (Exception e)
+            {
+                throw (new Exception(e.Message));
+            }
+
+
+            return userId+1;
+        }
+
+
+        
         public async Task<int> PostUser(DbUser user)
         {
             SqlORM<int> sqlQuery = new SqlORM<int>(_dbSettings);
@@ -263,7 +302,15 @@ namespace alibaba.Repos
             return true;
         }
 
-        public async Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria)
+        public async Task<IEnumerable<string>> GetUserAddresses(int  userId)
+        {
+
+            SqlORM<string> sqlQuery = new SqlORM<string>(_dbSettings);
+            var parameters = new DynamicParameters();
+           
+            return await sqlQuery.GetListQuery($@"SELECT address FROM userAddresses where userId =  {userId} ", parameters);
+        }
+       public async Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria)
         {
 
             string searchQuery = "";

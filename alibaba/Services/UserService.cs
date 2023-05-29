@@ -56,6 +56,15 @@ namespace alibaba
 
             return res;
         }
+        
+        public async Task<int> PostUserAddress(UserAddress user)
+        {
+
+            var dbUser = _mapper.Map<DbUserAddress>(user);
+            var res = await _uRepo.PostUserAddress(dbUser);
+
+            return res;
+        }
 
         public async Task<bool> UpdateUser(User user)
         {
@@ -86,6 +95,16 @@ namespace alibaba
 
 
             return "success";
+        }
+        
+        public async Task<IEnumerable<string>> GetUserAddresses(int userId)
+        {
+           
+                var res = await _uRepo.GetUserAddresses(userId);
+
+
+
+            return res ;
         }
 
         public async Task<IEnumerable<User>> FilterUsers(UserCriteria criteria)
