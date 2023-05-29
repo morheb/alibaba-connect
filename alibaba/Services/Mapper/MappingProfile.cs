@@ -19,6 +19,10 @@ namespace alibaba.Mapper
 
             CreateMap<Talabak, DbTalabak>();
 
+            CreateMap<DbUserAddress, UserAddress>();
+
+            CreateMap<UserAddress, DbUserAddress>();
+
             CreateMap<DbTalabakStatus, TalabakStatus>();
 
             CreateMap<TalabakStatus, DbTalabakStatus>();

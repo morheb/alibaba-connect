@@ -56,6 +56,16 @@ namespace alibaba.Controllers
         }
 
 
+
+        [Route("getUserAddresses/{id}")]
+        [HttpGet]
+        public async Task<IEnumerable<string>> GetUseAddresses([FromRoute] int id)
+        {
+            var result = await _uservice.GetUserAddresses(id);
+            return result;
+        }
+
+
         [HttpPost("register")]
         public async Task<ActionResult<string>> RegisterUser([FromBody] User user)
         {
@@ -77,6 +87,14 @@ namespace alibaba.Controllers
 
             };
             var result = await _uservice.PostUser(user);
+            return Ok(result.ToString());
+        }
+       
+        [HttpPost("addAddress")]
+        public async Task<ActionResult<string>> AddAddress([FromBody] UserAddress user)
+        {
+            
+            var result = await _uservice.PostUserAddress(user);
             return Ok(result.ToString());
         }
        
