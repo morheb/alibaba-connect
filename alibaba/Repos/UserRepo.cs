@@ -44,7 +44,7 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into userAddresses (userId,address) VALUES 
+                var res = await sqlQuery.PostQuery(@"insert into userLocations (userId,address) VALUES 
                                                     (@userId,@address) ",
 
 
@@ -308,7 +308,7 @@ namespace alibaba.Repos
             SqlORM<string> sqlQuery = new SqlORM<string>(_dbSettings);
             var parameters = new DynamicParameters();
            
-            return await sqlQuery.GetListQuery($@"SELECT address FROM userAddresses where userId =  {userId} ", parameters);
+            return await sqlQuery.GetListQuery($@"SELECT address FROM userLocations where userId =  {userId} ", parameters);
         }
        public async Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria)
         {
