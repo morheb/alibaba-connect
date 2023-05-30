@@ -66,7 +66,7 @@ namespace alibaba.Repos
 
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into products (name, unit,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price,restaurantId ,ingredients,callories,image,eta,rating) VALUES 
+                var res = await sqlQuery.PostQuery(@"insert into products (name,unit,category,subcategory,IsZeroSugar,IsOrganic,IsDiaryFree,isvegiterian,isvegan,description,price,restaurantId ,ingredients,callories,image,eta,rating) VALUES 
             (@name,@unit,@category,@subcategory,@IsZeroSugar,@IsOrganic,@IsDiaryFree,@isvegiterian,@isvegan,@description,@price, @restaurantId ,@ingredients,@callories,@image,@eta,@rating) ",
                parameters);
             }
@@ -255,10 +255,11 @@ namespace alibaba.Repos
             parameters.Add("@isvegan", prod.IsVegan);
             parameters.Add("@isvegiterian", prod.IsVegiterian);
             parameters.Add("@id", prod.Id);
+            parameters.Add("@unit", prod.Unit);
 
             try
             {
-                var res = await sqlQuery.PostQuery($"UPDATE products SET name ='{prod.Name}',category= '{prod.Category}', subcategory= '{prod.SubCategory}', description ='{prod.Description}',price='{prod.Price}'," +
+                var res = await sqlQuery.PostQuery($"UPDATE products SET unit = '{prod.Unit}',name ='{prod.Name}',category= '{prod.Category}', subcategory= '{prod.SubCategory}', description ='{prod.Description}',price='{prod.Price}'," +
                     $"ingredients='{prod.Ingredients}',brand = '{prod.Brand}',isZeroSugar={prod.IsZeroSugar},isOrganic={prod.IsOrganic},isDiaryFree={prod.IsDiaryFree},isvegan={prod.IsVegan},isvegiterian={prod.IsVegiterian}" +
                     $",callories='{prod.Calories}'," +
                     $"image='{prod.Image}',eta='{prod.ETA}' WHERE  id = '{prod.Id}';", parameters);
