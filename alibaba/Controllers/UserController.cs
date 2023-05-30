@@ -59,7 +59,7 @@ namespace alibaba.Controllers
 
         [Route("getUserAddresses/{id}")]
         [HttpGet]
-        public async Task<IEnumerable<string>> GetUseAddresses([FromRoute] int id)
+        public async Task<IEnumerable<UserAddress>> GetUseAddresses([FromRoute] int id)
         {
             var result = await _uservice.GetUserAddresses(id);
             return result;

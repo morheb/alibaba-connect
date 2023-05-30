@@ -7,8 +7,94 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAApbFOZJBThEmvEVqn5upV9AAAAAACAAAAAAAQZgAAAAEAACAAAADGHRJy/mWV9DwaRezZ9pSj5SIWQeuBnFpIYuBlzu7fCQAAAAAOgAAAAAIAACAAAABdClywFyGrCaG67W0cObQ74LEFNUCw2XQoA8nRL9ED+YAAAAAOZpCev5uFuARzGm2d3pVv2n5dTNB6I95jJiC6gdUTx5DMIgpXLuZY8kLC+VnB6lCLXaNqycoNSQk6RtV+9JAGtv6RA7sd7kSlVVlgvWNS1w1e7Exb3CgxNbNUVOUMGYxDLMwAlMFe8+zl0Ewo6c0GBTfhJwvS9JqX8alwvbXIgkAAAADj2k85oRfy8OgL274U2vW/yzlHWU3YkqcUohN8ua9pmM9cQvQEmw6xDdux8kEV9DRFHqDomDbcCiGMsaSmEA6C</EncryptedPassword>
-    <History>False|2023-05-25T17:16:02.6175045Z;</History>
+    <History>False|2023-05-29T16:50:22.8450401Z;False|2023-05-25T08:16:02.6175045-09:00;</History>
     <LastFailureDetails />
     <_PublishTargetUrl>ftps://waws-prod-qac-001.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="alibaba.deps.json">
+      <publishTime>05/29/2023 07:45:16</publishTime>
+    </File>
+    <File Include="alibaba.pdb">
+      <publishTime>05/29/2023 07:45:16</publishTime>
+    </File>
+    <File Include="alibaba.runtimeconfig.json">
+      <publishTime>05/29/2023 07:45:17</publishTime>
+    </File>
+    <File Include="appsettings.Development.json">
+      <publishTime>05/29/2023 07:38:46</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>05/29/2023 07:38:46</publishTime>
+    </File>
+    <File Include="AutoMapper.dll">
+      <publishTime>02/04/2022 06:28:52</publishTime>
+    </File>
+    <File Include="BouncyCastle.Crypto.dll">
+      <publishTime>10/19/2021 02:53:34</publishTime>
+    </File>
+    <File Include="Dapper.dll">
+      <publishTime>11/03/2021 05:07:40</publishTime>
+    </File>
+    <File Include="Google.Protobuf.dll">
+      <publishTime>01/27/2022 23:49:18</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.dll">
+      <publishTime>09/11/2020 16:11:58</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.Streams.dll">
+      <publishTime>09/11/2020 16:11:58</publishTime>
+    </File>
+    <File Include="K4os.Hash.xxHash.dll">
+      <publishTime>07/03/2019 11:39:02</publishTime>
+    </File>
+    <File Include="Microsoft.OpenApi.dll">
+      <publishTime>08/29/2020 11:14:12</publishTime>
+    </File>
+    <File Include="MySql.Data.dll">
+      <publishTime>06/10/2022 11:37:08</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.Bson.dll">
+      <publishTime>03/22/2017 02:01:20</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>03/17/2021 11:03:36</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>07/19/2017 01:01:34</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.Swagger.dll">
+      <publishTime>03/07/2022 14:38:48</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerGen.dll">
+      <publishTime>10/16/2021 03:54:12</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
+      <publishTime>10/16/2021 03:54:30</publishTime>
+    </File>
+    <File Include="System.Configuration.ConfigurationManager.dll">
+      <publishTime>11/20/2017 09:09:04</publishTime>
+    </File>
+    <File Include="System.Net.Http.Formatting.dll">
+      <publishTime>05/27/2022 14:39:42</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>07/19/2017 01:01:34</publishTime>
+    </File>
+    <File Include="System.Web.Http.dll">
+      <publishTime>05/27/2022 14:41:46</publishTime>
+    </File>
+    <File Include="System.Web.Http.WebHost.dll">
+      <publishTime>05/27/2022 14:41:54</publishTime>
+    </File>
+    <File Include="Ubiety.Dns.Core.dll">
+      <publishTime>06/10/2022 11:34:18</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>05/29/2023 07:45:30</publishTime>
+    </File>
+    <File Include="ZstdNet.dll">
+      <publishTime>06/10/2022 11:34:18</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

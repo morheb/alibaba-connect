@@ -97,7 +97,7 @@ namespace alibaba
             return "success";
         }
         
-        public async Task<IEnumerable<string>> GetUserAddresses(int userId)
+        public async Task<IEnumerable<UserAddress>> GetUserAddresses(int userId)
         {
            
                 var res = await _uRepo.GetUserAddresses(userId);

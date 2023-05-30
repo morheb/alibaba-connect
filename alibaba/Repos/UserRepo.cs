@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using alibaba.Services.Models;
+using System.Linq;
 
 namespace alibaba.Repos
 {
@@ -31,6 +33,7 @@ namespace alibaba.Repos
           
             parameters.Add("@address", address.Address);
             parameters.Add("@userId", address.UserId);
+            parameters.Add("@title", address.Title);
             try
             {
                 userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
@@ -44,8 +47,8 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into userLocations (userId,address) VALUES 
-                                                    (@userId,@address) ",
+                var res = await sqlQuery.PostQuery(@"insert into userLocations (userId,address,title) VALUES 
+                                                    (@userId,@address,@title) ",
 
 
                parameters);
@@ -302,15 +305,24 @@ namespace alibaba.Repos
             return true;
         }
 
-        public async Task<IEnumerable<string>> GetUserAddresses(int  userId)
+        public async Task<IEnumerable<UserAddress>> GetUserAddresses(int userId)
         {
-
-            SqlORM<string> sqlQuery = new SqlORM<string>(_dbSettings);
+            SqlORM<DbUserAddress> sqlQuery = new SqlORM<DbUserAddress>(_dbSettings);
             var parameters = new DynamicParameters();
-           
-            return await sqlQuery.GetListQuery($@"SELECT address FROM userLocations where userId =  {userId} ", parameters);
+
+            var dbUserAddresses = await sqlQuery.GetListQuery($@"SELECT address, title FROM userLocations WHERE userId = {userId}", parameters);
+
+            var userAddresses = dbUserAddresses.Select(dbUserAddress => new UserAddress
+            {
+                Address = dbUserAddress.Address,
+                Title = dbUserAddress.Title
+               
+            });
+
+            return userAddresses;
         }
-       public async Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria)
+
+        public async Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria)
         {
 
             string searchQuery = "";
