@@ -65,7 +65,8 @@ namespace alibaba.Controllers
 
         [Route("deleteUserAddresses")]
         [HttpDelete]
-        public async Task<IEnumerable<UserAddress>> DeleteUserAddresses([FromBody] int userId, int addressId)
+        public async Task<string> DeleteUserAddresses([FromRoute] int userId, int addressId)
+
         {
             var result = await _uservice.DeleteUserAddresses(userId, addressId);
             return result;

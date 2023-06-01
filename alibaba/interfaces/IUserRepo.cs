@@ -16,7 +16,8 @@ namespace alibaba.interfaces
         Task<string> DeleteUser(int id);
         Task<bool> SetUserStatus(DbUserStatus dbUserStatus);
         Task<IEnumerable<UserAddress>> GetUserAddresses(int userId);
-        Task<IEnumerable<UserAddress>> DeleteUserAddresses(int userId, int addressId);
+        Task<string> DeleteUserAddresses(int userId, int addressId);
+
 
         Task<bool> SetUserActiveStatus(DbUserActiveStatus dbUserStatus);
         Task<IEnumerable<DbUser>> FilterUsersList(DbUserCriteria criteria);
