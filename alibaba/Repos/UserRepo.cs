@@ -310,13 +310,13 @@ namespace alibaba.Repos
             SqlORM<DbUserAddress> sqlQuery = new SqlORM<DbUserAddress>(_dbSettings);
             var parameters = new DynamicParameters();
 
-            var dbUserAddresses = await sqlQuery.GetListQuery($@"SELECT address, title FROM userLocations WHERE userId = {userId}", parameters);
+            var dbUserAddresses = await sqlQuery.GetListQuery($@"SELECT id, address, title FROM userLocations WHERE userId = {userId}", parameters);
 
             var userAddresses = dbUserAddresses.Select(dbUserAddress => new UserAddress
             {
+                Id = dbUserAddress.Id,
                 Address = dbUserAddress.Address,
                 Title = dbUserAddress.Title
-               
             });
 
             return userAddresses;
