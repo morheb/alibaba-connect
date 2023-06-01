@@ -55,13 +55,19 @@ namespace alibaba.Controllers
             return result;
         }
 
-
-
         [Route("getUserAddresses/{id}")]
         [HttpGet]
         public async Task<IEnumerable<UserAddress>> GetUseAddresses([FromRoute] int id)
         {
             var result = await _uservice.GetUserAddresses(id);
+            return result;
+        }
+
+        [Route("deleteUserAddresses")]
+        [HttpDelete]
+        public async Task<IEnumerable<UserAddress>> DeleteUserAddresses([FromBody] int userId, int addressId)
+        {
+            var result = await _uservice.DeleteUserAddresses(userId, addressId);
             return result;
         }
 

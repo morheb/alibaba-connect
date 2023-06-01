@@ -99,13 +99,16 @@ namespace alibaba
         
         public async Task<IEnumerable<UserAddress>> GetUserAddresses(int userId)
         {
-           
-                var res = await _uRepo.GetUserAddresses(userId);
-
-
-
+            var res = await _uRepo.GetUserAddresses(userId);
             return res ;
         }
+
+        public async Task<IEnumerable<UserAddress>> DeleteUserAddresses(int userId, int addressId)
+        {
+            var res = await _uRepo.DeleteUserAddresses(userId, addressId);
+            return res;
+        }
+
 
         public async Task<IEnumerable<User>> FilterUsers(UserCriteria criteria)
         {
