@@ -351,7 +351,7 @@ namespace alibaba.Repos
                 if (criteria.Status != -1)
                 {
 
-                    query += $" and o.status <  {criteria.Status} and o.status !=-1 ";
+                    query += $" and o.status =  {criteria.Status} and o.status !=-1 ";
                 }
                 else
                 {
