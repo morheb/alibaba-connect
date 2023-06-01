@@ -63,12 +63,12 @@ namespace alibaba.Controllers
             return result;
         }
 
-        [Route("deleteUserAddresses")]
+        [Route("deleteUserAddresses/{addressId}")]
         [HttpDelete]
-        public async Task<string> DeleteUserAddresses([FromRoute] int userId, int addressId)
+        public async Task<string> DeleteUserAddresses([FromRoute] int addressId)
 
         {
-            var result = await _uservice.DeleteUserAddresses(userId, addressId);
+            var result = await _uservice.DeleteUserAddresses(addressId);
             return result;
         }
 

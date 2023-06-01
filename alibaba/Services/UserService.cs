@@ -103,9 +103,9 @@ namespace alibaba
             return res ;
         }
 
-         public async Task<string> DeleteUserAddresses(int userId, int addressId)
+         public async Task<string> DeleteUserAddresses( int addressId)
         {
-            var res = await _uRepo.DeleteUserAddresses(userId, addressId);
+            var res = await _uRepo.DeleteUserAddresses(addressId);
             return res;
         }
 

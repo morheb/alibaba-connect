@@ -322,17 +322,17 @@ namespace alibaba.Repos
             return userAddresses;
         }
 
-        public async Task<string> DeleteUserAddresses(int userId, int addressId)
+        public async Task<string> DeleteUserAddresses(int addressId)
         {
             SqlORM<string> sql = new SqlORM<string>(_dbSettings);
 
             var parameters = new DynamicParameters();
             parameters.Add("@addressId", addressId);
-            parameters.Add("@userId", userId);
+           
 
             try
             {
-                await sql.PostQuery(@"delete FROM users where Id = @addressId AND userId = @userId ", parameters);
+                await sql.PostQuery($@"delete FROM userLocations where id = @addressId ", parameters);
             }
             catch (Exception ex)
             {
