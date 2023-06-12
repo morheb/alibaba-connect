@@ -82,7 +82,7 @@ namespace alibaba.Repos
             parameters.Add("@type", user.UserType);
             parameters.Add("@emailVerified", user.EmailVerified);
             parameters.Add("@phoneVerified", user.PhoneVerified);
-            parameters.Add("@locationDescription", user.LocationDescription);
+            //parameters.Add("@locationDescription", user.LocationDescription);
             try
             {
                 userId = await sqlQuery.GetQuery(@"SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE 
@@ -96,8 +96,8 @@ namespace alibaba.Repos
             }
             try
             {
-                var res = await sqlQuery.PostQuery(@"insert into users (locationDescription,firebaseId,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
-                                                    (@locationDescription,@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
+                var res = await sqlQuery.PostQuery(@"insert into users (firebaseId,usertype, address, location,image, username,email ,phonenumber, firebaseToken) VALUES 
+                                                    (@firebaseid,@type,@address,@location, @image, @username,@email, @phone , @firebaseToken) ",
 
 
                parameters);
